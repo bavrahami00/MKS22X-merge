@@ -1,25 +1,25 @@
 public class Merge {
   public static void mergesort(int[] data) {
-    mergesort(data,0,data.length-1);
-  }
-  public static void mergesort(int[] data, int low, int high) {
-    if (low >= high) {
-      return;
+    int dist = 2;
+    while (dist < data.length*2) {
+      for (int x = 0; x < data.length; x += dist) {
+        merge(data,x,x+dist/2,x+dist);
+      }
+      dist *= 2;
     }
-    int pivot = low+(high-low)/2+1;
-    mergesort(data,low,pivot-1);
-    mergesort(data,pivot,high);
-    merge(data,low,pivot,high);
   }
   public static void merge(int[] data, int low, int pivot, int high) {
-    int[] temp = new int[data.length];
-    for (int x = 0; x < low; x++) {
-      temp[x] = data[x];
+    if (high > data.length) {
+      high = data.length;
     }
+    if (pivot >= data.length) {
+      pivot = data.length-1;
+    }
+    int[] temp = new int[data.length];
     int first = low;
     int second = pivot;
-    for (int x = low; x <= high; x++) {
-      if (first != pivot && (data[first] < data[second] || second == high+1)) {
+    for (int x = low; x < high; x++) {
+      if (first != pivot && (second == high || data[first] < data[second])) {
         temp[x] = data[first];
         first++;
       }
@@ -28,9 +28,9 @@ public class Merge {
         second++;
       }
     }
-    for (int x = high+1; x < data.length; x++) {
-      temp[x] = data[x];
+    for (int x = low; x < high; x++) {
+       data[x] = temp[x];
     }
-    data = temp;
   }
 }
+
