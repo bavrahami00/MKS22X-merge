@@ -16,8 +16,17 @@ public class Merge {
     for (int x = 0; x < low; x++) {
       temp[x] = data[x];
     }
+    int first = low;
+    int second = pivot;
     for (int x = low; x <= high; x++) {
-      
+      if (first != pivot && (data[first] < data[second] || second == high+1)) {
+        temp[x] = data[first];
+        first++;
+      }
+      else {
+        temp[x] = data[second];
+        second++;
+      }
     }
     for (int x = high+1; x < data.length; x++) {
       temp[x] = data[x];
