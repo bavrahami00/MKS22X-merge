@@ -11,10 +11,10 @@ public class Merge {
     merge(data,low,(high+low)/2+1,high);
   }
   public static void merge(int[] data, int low, int pivot, int high) {
-    int[] temp = new int[data.length];
+    int[] temp = new int[high-low+1];
     int first = low;
     int second = pivot;
-    for (int x = low; x <= high; x++) {
+    for (int x = 0; x <= high-low; x++) {
       if (first != pivot && (second == high+1 || data[first] < data[second])) {
         temp[x] = data[first];
         first++;
@@ -25,7 +25,7 @@ public class Merge {
       }
     }
      for (int x = low; x <= high; x++) {
-        data[x] = temp[x];
+        data[x] = temp[x-low];
      }
   }
 }
